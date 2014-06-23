@@ -60,12 +60,6 @@ public class Knopf extends Textkomponente
         this.zGeklicktBearbeiter = pBearbeiter;
     }
 
-    private void knopfGeklickt() {
-        if (!this.zGeklicktBearbeiter.isEmpty()) {
-            this.bearbeiteEreigniss(this.zGeklicktBearbeiter);
-        }
-    }
-
     private void bearbeiteEreigniss(String methodenName) {
 
         if (!methodenName.isEmpty()) {
@@ -84,21 +78,10 @@ public class Knopf extends Textkomponente
             }
         }
     }
-
-    private void bekommtFokus() {
-        setzeFokusWert(true);
-        this.bearbeiteEreigniss(fokusErhaltenBearbeiter());
-    }
-
-    private void verliertFokus() {
-        setzeFokusWert(false);
-        this.bearbeiteEreigniss(fokusVerlorenBearbeiter());
-    }
-
+    
     @Override
     public void setzeInhalt(String pText) {
         this.hatButton.setText(pText);
-        //Bildschirm.topFenster.doUpdate(this.hatButton);
 
     }
 
@@ -110,26 +93,28 @@ public class Knopf extends Textkomponente
     //Knopf geklickt
     @Override
     public void actionPerformed(ActionEvent e) {
-        this.knopfGeklickt();
+        this.bearbeiteEreigniss(this.zGeklicktBearbeiter);
     }
 
     //Fokus erhalten
     @Override
     public void focusGained(FocusEvent e) {
-        this.bekommtFokus();
+        setzeFokusWert(true);
+        this.bearbeiteEreigniss(fokusErhaltenBearbeiter());
     }
 
     //Fokus verloren
     @Override
     public void focusLost(FocusEvent e) {
-        this.verliertFokus();
+        setzeFokusWert(false);
+        this.bearbeiteEreigniss(fokusVerlorenBearbeiter());
     }
 
     //Taste gedrückt
     @Override
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == 10) {
-            this.knopfGeklickt();
+            this.bearbeiteEreigniss(this.zGeklicktBearbeiter);
         }
     }
 
