@@ -6,15 +6,14 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
-import java.io.PrintStream;
 import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import javax.swing.JPanel;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JPasswordField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import javax.swing.text.Document;
 import sum.ereignis.Bildschirm;
 import sum.ereignis.Ereignisanwendung;
 import sum.ereignis.Fenster;
@@ -30,10 +29,10 @@ public class Kennwortfeld extends Textfeld
      this.hatPasswordField = new JPasswordField();
      this.hatPasswordField.setOpaque(true);
      this.hatTextField = this.hatPasswordField;
-     this.hatPasswordField.getDocument().addDocumentListener(new DokumentReaktor(null));
-     this.hatPasswordField.addMouseMotionListener(new FeldMausReaktor(null));
-     this.hatPasswordField.addFocusListener(new FeldFokusReaktor(null));
-     this.hatPasswordField.addKeyListener(new FeldTastenReaktor(null));
+     this.hatPasswordField.getDocument().addDocumentListener(new DokumentReaktor());
+     this.hatPasswordField.addMouseMotionListener(new FeldMausReaktor());
+     this.hatPasswordField.addFocusListener(new FeldFokusReaktor());
+     this.hatPasswordField.addKeyListener(new FeldTastenReaktor());
      this.hatPasswordField.setEchoChar(pEchozeichen);
      Bildschirm.topFenster.privatPanel().add(this.hatPasswordField, 0);
      lerneKomponenteKennen(Bildschirm.topFenster, this.hatPasswordField);
@@ -45,10 +44,10 @@ public class Kennwortfeld extends Textfeld
      this.hatPasswordField = new JPasswordField();
      this.hatPasswordField.setOpaque(true);
      this.hatTextField = this.hatPasswordField;
-     this.hatPasswordField.getDocument().addDocumentListener(new DokumentReaktor(null));
-     this.hatPasswordField.addMouseMotionListener(new FeldMausReaktor(null));
-     this.hatPasswordField.addFocusListener(new FeldFokusReaktor(null));
-     this.hatPasswordField.addKeyListener(new FeldTastenReaktor(null));
+     this.hatPasswordField.getDocument().addDocumentListener(new DokumentReaktor());
+     this.hatPasswordField.addMouseMotionListener(new FeldMausReaktor());
+     this.hatPasswordField.addFocusListener(new FeldFokusReaktor());
+     this.hatPasswordField.addKeyListener(new FeldTastenReaktor());
      this.hatPasswordField.setEchoChar(pEchozeichen);
      pFenster.privatPanel().add(this.hatPasswordField, 0);
      lerneKomponenteKennen(pFenster, this.hatPasswordField);
@@ -73,13 +72,13 @@ public class Kennwortfeld extends Textfeld
          Class sumEreignis = Ereignisanwendung.hatSuMPrivateAnwendung.getClass();
         try
         {
-           methode = sumEreignis.getMethod(this.zInhaltGeaendertBearbeiter, null);
+           Method methode = sumEreignis.getMethod(this.zInhaltGeaendertBearbeiter, null);
            methode.invoke(Ereignisanwendung.hatSuMPrivateAnwendung, null);
         }
         catch (InvocationTargetException e0)
         {
            System.out.println("Fehler in Methode \"" + this.zInhaltGeaendertBearbeiter + "\" eines Textfelds: " + e0.getTargetException().toString());
-           e0.printStackTrace();
+            Logger.getLogger(Kennwortfeld.class.getName()).log(Level.SEVERE, null, e0);
         }
         catch (Exception e1)
         {
@@ -93,7 +92,7 @@ public class Kennwortfeld extends Textfeld
           catch (InvocationTargetException e2)
           {
              System.out.println("Fehler in Methode \"" + this.zInhaltGeaendertBearbeiter + "\" eines Textfelds: " + e2.getTargetException().toString());
-             e2.printStackTrace();
+             Logger.getLogger(Kennwortfeld.class.getName()).log(Level.SEVERE, null, e2);
           }
           catch (Exception e3)
           {
@@ -121,13 +120,13 @@ public class Kennwortfeld extends Textfeld
          Class sumEreignis = Ereignisanwendung.hatSuMPrivateAnwendung.getClass();
         try
         {
-           methode = sumEreignis.getMethod(this.zEingabeBestaetigtBearbeiter, null);
+           Method methode = sumEreignis.getMethod(this.zEingabeBestaetigtBearbeiter, null);
            methode.invoke(Ereignisanwendung.hatSuMPrivateAnwendung, null);
         }
         catch (InvocationTargetException e0)
         {
            System.out.println("Fehler in Methode \"" + this.zEingabeBestaetigtBearbeiter + "\" eines Textfelds: " + e0.getTargetException().toString());
-           e0.printStackTrace();
+           Logger.getLogger(Kennwortfeld.class.getName()).log(Level.SEVERE, null, e0);
         }
         catch (Exception e1)
         {
@@ -141,7 +140,7 @@ public class Kennwortfeld extends Textfeld
           catch (InvocationTargetException e2)
           {
              System.out.println("Fehler in Methode \"" + this.zEingabeBestaetigtBearbeiter + "\" eines Textfelds: " + e2.getTargetException().toString());
-             e2.printStackTrace();
+             Logger.getLogger(Kennwortfeld.class.getName()).log(Level.SEVERE, null, e2);
           }
           catch (Exception e3)
           {
@@ -169,13 +168,13 @@ public class Kennwortfeld extends Textfeld
          Class sumEreignis = Ereignisanwendung.hatSuMPrivateAnwendung.getClass();
         try
         {
-           methode = sumEreignis.getMethod(this.zMarkierungGeaendertBearbeiter, null);
+           Method methode = sumEreignis.getMethod(this.zMarkierungGeaendertBearbeiter, null);
            methode.invoke(Ereignisanwendung.hatSuMPrivateAnwendung, null);
         }
         catch (InvocationTargetException e0)
         {
            System.out.println("Fehler in Methode \"" + this.zMarkierungGeaendertBearbeiter + "\" eines Textfelds: " + e0.getTargetException().toString());
-           e0.printStackTrace();
+           Logger.getLogger(Kennwortfeld.class.getName()).log(Level.SEVERE, null, e0);
         }
         catch (Exception e1)
         {
@@ -189,7 +188,7 @@ public class Kennwortfeld extends Textfeld
           catch (InvocationTargetException e2)
           {
              System.out.println("Fehler in Methode \"" + this.zMarkierungGeaendertBearbeiter + "\" eines Textfelds: " + e2.getTargetException().toString());
-             e2.printStackTrace();
+             Logger.getLogger(Kennwortfeld.class.getName()).log(Level.SEVERE, null, e2);
           }
           catch (Exception e3)
           {
@@ -218,13 +217,13 @@ public class Kennwortfeld extends Textfeld
          Class sumEreignis = Ereignisanwendung.hatSuMPrivateAnwendung.getClass();
         try
         {
-           methode = sumEreignis.getMethod(fokusErhaltenBearbeiter(), null);
+           Method methode = sumEreignis.getMethod(fokusErhaltenBearbeiter(), null);
            methode.invoke(Ereignisanwendung.hatSuMPrivateAnwendung, null);
         }
         catch (InvocationTargetException e0)
         {
            System.out.println("Fehler in Methode \"" + fokusErhaltenBearbeiter() + "\" eines Textfelds: " + e0.getTargetException().toString());
-           e0.printStackTrace();
+           Logger.getLogger(Kennwortfeld.class.getName()).log(Level.SEVERE, null, e0);
         }
         catch (Exception e1)
         {
@@ -238,7 +237,7 @@ public class Kennwortfeld extends Textfeld
           catch (InvocationTargetException e2)
           {
              System.out.println("Fehler in Methode \"" + fokusErhaltenBearbeiter() + "\" eines Textfelds: " + e2.getTargetException().toString());
-             e2.printStackTrace();
+             Logger.getLogger(Kennwortfeld.class.getName()).log(Level.SEVERE, null, e2);
           }
           catch (Exception e3)
           {
@@ -267,7 +266,7 @@ public class Kennwortfeld extends Textfeld
          Class sumEreignis = Ereignisanwendung.hatSuMPrivateAnwendung.getClass();
         try
         {
-           methode = sumEreignis.getMethod(fokusVerlorenBearbeiter(), null);
+           Method methode = sumEreignis.getMethod(fokusVerlorenBearbeiter(), null);
            methode.invoke(Ereignisanwendung.hatSuMPrivateAnwendung, null);
         }
         catch (InvocationTargetException e0)
