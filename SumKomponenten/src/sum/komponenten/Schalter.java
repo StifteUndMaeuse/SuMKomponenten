@@ -6,12 +6,10 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.io.PrintStream;
 import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import javax.swing.JCheckBox;
-import javax.swing.JPanel;
 import sum.ereignis.Bildschirm;
 import sum.ereignis.Ereignisanwendung;
 import sum.ereignis.Fenster;
@@ -27,9 +25,9 @@ public class Schalter extends Textkomponente
      this.hatCheckbox = new JCheckBox(pAufschrift);
      this.hatCheckbox.setOpaque(true);
      Bildschirm.topFenster.privatPanel().add(this.hatCheckbox, 0);
-     this.hatCheckbox.addItemListener(new SchalterReaktor(null));
-     this.hatCheckbox.addKeyListener(new SchalterTastenReaktor(null));
-     this.hatCheckbox.addFocusListener(new SchalterFokusReaktor(null));
+     this.hatCheckbox.addItemListener(new SchalterReaktor());
+     this.hatCheckbox.addKeyListener(new SchalterTastenReaktor());
+     this.hatCheckbox.addFocusListener(new SchalterFokusReaktor());
      lerneKomponenteKennen(Bildschirm.topFenster, this.hatCheckbox);
      init(pLinks, pOben, pBreite, pHoehe);
   }
@@ -39,9 +37,9 @@ public class Schalter extends Textkomponente
      this.hatCheckbox = new JCheckBox(pAufschrift);
      this.hatCheckbox.setOpaque(true);
      pFenster.privatPanel().add(this.hatCheckbox, 0);
-     this.hatCheckbox.addItemListener(new SchalterReaktor(null));
-     this.hatCheckbox.addKeyListener(new SchalterTastenReaktor(null));
-     this.hatCheckbox.addFocusListener(new SchalterFokusReaktor(null));
+     this.hatCheckbox.addItemListener(new SchalterReaktor());
+     this.hatCheckbox.addKeyListener(new SchalterTastenReaktor());
+     this.hatCheckbox.addFocusListener(new SchalterFokusReaktor());
      lerneKomponenteKennen(pFenster, this.hatCheckbox);
      init(pLinks, pOben, pBreite, pHoehe);
   }
@@ -70,7 +68,7 @@ public class Schalter extends Textkomponente
          Class sumEreignis = Ereignisanwendung.hatSuMPrivateAnwendung.getClass();
         try
         {
-           method = sumEreignis.getMethod(this.zGeklicktBearbeiter, null);
+           Method method = sumEreignis.getMethod(this.zGeklicktBearbeiter, null);
            method.invoke(Ereignisanwendung.hatSuMPrivateAnwendung, null);
         }
         catch (InvocationTargetException e0)
@@ -120,7 +118,7 @@ public class Schalter extends Textkomponente
          Class sumEreignis = Ereignisanwendung.hatSuMPrivateAnwendung.getClass();
         try
         {
-           method = sumEreignis.getMethod(fokusErhaltenBearbeiter(), null);
+           Method method = sumEreignis.getMethod(fokusErhaltenBearbeiter(), null);
            method.invoke(Ereignisanwendung.hatSuMPrivateAnwendung, null);
         }
         catch (InvocationTargetException e0)
@@ -169,7 +167,7 @@ public class Schalter extends Textkomponente
          Class sumEreignis = Ereignisanwendung.hatSuMPrivateAnwendung.getClass();
         try
         {
-           method = sumEreignis.getMethod(fokusVerlorenBearbeiter(), null);
+           Method method = sumEreignis.getMethod(fokusVerlorenBearbeiter(), null);
            method.invoke(Ereignisanwendung.hatSuMPrivateAnwendung, null);
         }
         catch (InvocationTargetException e0)
