@@ -30,9 +30,9 @@ public class Zeichenbereich extends Textbereich
      this.hatTextArea = new JTextArea("", 2, 2);
      this.hatTextArea.setLineWrap(true);
      this.hatTextArea.setWrapStyleWord(true);
-     this.hatTextArea.getDocument().addDocumentListener(new DokumentReaktor(null));
-     this.hatTextArea.addMouseMotionListener(new BereichMausReaktor(null));
-     this.hatTextArea.addFocusListener(new BereichFokusReaktor(null));
+     this.hatTextArea.getDocument().addDocumentListener(new DokumentReaktor());
+     this.hatTextArea.addMouseMotionListener(new BereichMausReaktor());
+     this.hatTextArea.addFocusListener(new BereichFokusReaktor());
      lerneKomponenteKennen(Bildschirm.topFenster, this.hatTextArea);
      init(pLinks, pOben, pBreite, pHoehe, pText);
   }
@@ -43,9 +43,9 @@ public class Zeichenbereich extends Textbereich
      this.hatTextArea = new JTextArea("", 2, 2);
      this.hatTextArea.setLineWrap(true);
      this.hatTextArea.setWrapStyleWord(true);
-     this.hatTextArea.getDocument().addDocumentListener(new DokumentReaktor(null));
-     this.hatTextArea.addMouseMotionListener(new BereichMausReaktor(null));
-     this.hatTextArea.addFocusListener(new BereichFokusReaktor(null));
+     this.hatTextArea.getDocument().addDocumentListener(new DokumentReaktor());
+     this.hatTextArea.addMouseMotionListener(new BereichMausReaktor());
+     this.hatTextArea.addFocusListener(new BereichFokusReaktor());
      lerneKomponenteKennen(pFenster, this.hatTextArea);
      init(pLinks, pOben, pBreite, pHoehe, pText);
   }
@@ -63,7 +63,7 @@ public class Zeichenbereich extends Textbereich
          Class sumEreignis = Ereignisanwendung.hatSuMPrivateAnwendung.getClass();
         try
         {
-           methode = sumEreignis.getMethod(this.zInhaltGeaendertBearbeiter, null);
+           Method methode = sumEreignis.getMethod(this.zInhaltGeaendertBearbeiter, null);
            methode.invoke(Ereignisanwendung.hatSuMPrivateAnwendung, null);
         }
         catch (InvocationTargetException e0)
@@ -111,7 +111,7 @@ public class Zeichenbereich extends Textbereich
          Class sumEreignis = Ereignisanwendung.hatSuMPrivateAnwendung.getClass();
         try
         {
-           methode = sumEreignis.getMethod(this.zMarkierungGeaendertBearbeiter, null);
+           Method methode = sumEreignis.getMethod(this.zMarkierungGeaendertBearbeiter, null);
            methode.invoke(Ereignisanwendung.hatSuMPrivateAnwendung, null);
         }
         catch (InvocationTargetException e0)
@@ -160,7 +160,7 @@ public class Zeichenbereich extends Textbereich
          Class sumEreignis = Ereignisanwendung.hatSuMPrivateAnwendung.getClass();
         try
         {
-           methode = sumEreignis.getMethod(fokusErhaltenBearbeiter(), null);
+           Method methode = sumEreignis.getMethod(fokusErhaltenBearbeiter(), null);
            methode.invoke(Ereignisanwendung.hatSuMPrivateAnwendung, null);
         }
         catch (InvocationTargetException e0)
@@ -209,7 +209,7 @@ public class Zeichenbereich extends Textbereich
          Class sumEreignis = Ereignisanwendung.hatSuMPrivateAnwendung.getClass();
         try
         {
-           methode = sumEreignis.getMethod(fokusVerlorenBearbeiter(), null);
+           Method methode = sumEreignis.getMethod(fokusVerlorenBearbeiter(), null);
            methode.invoke(Ereignisanwendung.hatSuMPrivateAnwendung, null);
         }
         catch (InvocationTargetException e0)

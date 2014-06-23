@@ -31,7 +31,7 @@ public class Menue extends Textkomponente
   {
      JMenuBar lMenuBar = Bildschirm.topFenster.getJMenuBar();
      this.hatMenu = new JMenu(pTitel);
-     this.hatListener = new MenueReaktor(null);
+     this.hatListener = new MenueReaktor();
      this.hatMenu.addActionListener(this.hatListener);
      if (pObermenu == null)
     {
@@ -61,7 +61,7 @@ public class Menue extends Textkomponente
          Class sumEreignis = Ereignisanwendung.hatSuMPrivateAnwendung.getClass();
         try
         {
-           methode = sumEreignis.getMethod(pAuftrag, null);
+           Method methode = sumEreignis.getMethod(pAuftrag, null);
            methode.invoke(Ereignisanwendung.hatSuMPrivateAnwendung, null);
         }
         catch (InvocationTargetException e0)

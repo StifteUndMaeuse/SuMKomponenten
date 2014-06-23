@@ -46,9 +46,9 @@ public class Tabelle extends Komponente
   {
      this.hatTable = new JTable(pZeilen, pSpalten);
      this.hatModel = this.hatTable.getModel();
-     this.hatModel.addTableModelListener(new TableDataReaktor(null));
-     this.hatTable.addFocusListener(new BereichFokusReaktor(null));
-     this.hatTable.getSelectionModel().addListSelectionListener(new AuswahlReaktor(null));
+     this.hatModel.addTableModelListener(new TableDataReaktor());
+     this.hatTable.addFocusListener(new BereichFokusReaktor());
+     this.hatTable.getSelectionModel().addListSelectionListener(new AuswahlReaktor());
      this.hatScrollPane = new JScrollPane(22, 32);
      this.hatScrollPane.setSize(new Dimension(80, 80));
      Bildschirm.topFenster.privatPanel().add(this.hatScrollPane, 0);
@@ -63,9 +63,9 @@ public class Tabelle extends Komponente
   {
      this.hatTable = new JTable(pZeilen, pSpalten);
      this.hatModel = this.hatTable.getModel();
-     this.hatModel.addTableModelListener(new TableDataReaktor(null));
-     this.hatTable.addFocusListener(new BereichFokusReaktor(null));
-     this.hatTable.getSelectionModel().addListSelectionListener(new AuswahlReaktor(null));
+     this.hatModel.addTableModelListener(new TableDataReaktor());
+     this.hatTable.addFocusListener(new BereichFokusReaktor());
+     this.hatTable.getSelectionModel().addListSelectionListener(new AuswahlReaktor());
      this.hatScrollPane = new JScrollPane(22, 32);
      this.hatScrollPane.setSize(new Dimension(80, 80));
      pFenster.privatPanel().add(this.hatScrollPane, 0);
@@ -89,7 +89,7 @@ public class Tabelle extends Komponente
          Class sumEreignis = Ereignisanwendung.hatSuMPrivateAnwendung.getClass();
         try
         {
-           methode = sumEreignis.getMethod(this.zInhaltGeaendertBearbeiter, null);
+           Method methode = sumEreignis.getMethod(this.zInhaltGeaendertBearbeiter, null);
            methode.invoke(Ereignisanwendung.hatSuMPrivateAnwendung, null);
         }
         catch (InvocationTargetException e0)
@@ -137,7 +137,7 @@ public class Tabelle extends Komponente
          Class sumEreignis = Ereignisanwendung.hatSuMPrivateAnwendung.getClass();
         try
         {
-           methode = sumEreignis.getMethod(this.zMarkierungGeaendertBearbeiter, null);
+           Method methode = sumEreignis.getMethod(this.zMarkierungGeaendertBearbeiter, null);
            methode.invoke(Ereignisanwendung.hatSuMPrivateAnwendung, null);
         }
         catch (InvocationTargetException e0)
@@ -186,7 +186,7 @@ public class Tabelle extends Komponente
          Class sumEreignis = Ereignisanwendung.hatSuMPrivateAnwendung.getClass();
         try
         {
-           methode = sumEreignis.getMethod(fokusErhaltenBearbeiter(), null);
+           Method methode = sumEreignis.getMethod(fokusErhaltenBearbeiter(), null);
            methode.invoke(Ereignisanwendung.hatSuMPrivateAnwendung, null);
         }
         catch (InvocationTargetException e0)
@@ -235,7 +235,7 @@ public class Tabelle extends Komponente
          Class sumEreignis = Ereignisanwendung.hatSuMPrivateAnwendung.getClass();
         try
         {
-           methode = sumEreignis.getMethod(fokusVerlorenBearbeiter(), null);
+           Method methode = sumEreignis.getMethod(fokusVerlorenBearbeiter(), null);
            methode.invoke(Ereignisanwendung.hatSuMPrivateAnwendung, null);
         }
         catch (InvocationTargetException e0)

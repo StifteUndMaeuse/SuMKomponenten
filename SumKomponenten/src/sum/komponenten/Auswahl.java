@@ -4,12 +4,12 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.io.PrintStream;
 import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JComboBox;
-import javax.swing.JPanel;
 import sum.ereignis.Bildschirm;
 import sum.ereignis.Ereignisanwendung;
 import sum.ereignis.Fenster;
@@ -25,7 +25,7 @@ public class Auswahl extends Komponente
      this.hatComboBox = new JComboBox();
      this.hatComboBox.setOpaque(true);
      Bildschirm.topFenster.privatPanel().add(this.hatComboBox, 0);
-     this.hatComboBox.addItemListener(new AuswahlReaktor(null));
+     this.hatComboBox.addItemListener(new AuswahlReaktor());
      lerneKomponenteKennen(Bildschirm.topFenster, this.hatComboBox);
      init(pLinks, pOben, pBreite, pHoehe);
   }
@@ -35,7 +35,7 @@ public class Auswahl extends Komponente
      this.hatComboBox = new JComboBox();
      this.hatComboBox.setOpaque(true);
      pFenster.privatPanel().add(this.hatComboBox, 0);
-     this.hatComboBox.addItemListener(new AuswahlReaktor(null));
+     this.hatComboBox.addItemListener(new AuswahlReaktor());
      lerneKomponenteKennen(pFenster, this.hatComboBox);
      init(pLinks, pOben, pBreite, pHoehe);
   }
@@ -58,13 +58,14 @@ public class Auswahl extends Komponente
          Class sumEreignis = Ereignisanwendung.hatSuMPrivateAnwendung.getClass();
         try
         {
-           methode = sumEreignis.getMethod(this.zGeaendertBearbeiter, null);
+            
+           Method methode = sumEreignis.getMethod(this.zGeaendertBearbeiter, null);
            methode.invoke(Ereignisanwendung.hatSuMPrivateAnwendung, null);
         }
         catch (InvocationTargetException e0)
         {
            System.out.println("Fehler in Methode \"" + this.zGeaendertBearbeiter + "\" einer Auswahl: " + e0.getTargetException().toString());
-           e0.printStackTrace();
+           Logger.getLogger(Auswahl.class.getName()).log(Level.SEVERE, null, e0);
         }
         catch (Exception e1)
         {
@@ -78,7 +79,7 @@ public class Auswahl extends Komponente
           catch (InvocationTargetException e2)
           {
              System.out.println("Fehler in Methode \"" + this.zGeaendertBearbeiter + "\" einer Auswahl: " + e2.getTargetException().toString());
-             e2.printStackTrace();
+              Logger.getLogger(Auswahl.class.getName()).log(Level.SEVERE, null, e2);
           }
           catch (Exception e3)
           {
@@ -107,13 +108,13 @@ public class Auswahl extends Komponente
          Class sumEreignis = Ereignisanwendung.hatSuMPrivateAnwendung.getClass();
         try
         {
-           methode = sumEreignis.getMethod(fokusErhaltenBearbeiter(), null);
+           Method methode = sumEreignis.getMethod(fokusErhaltenBearbeiter(), null);
            methode.invoke(Ereignisanwendung.hatSuMPrivateAnwendung, null);
         }
         catch (InvocationTargetException e0)
         {
            System.out.println("Fehler in Methode \"" + fokusErhaltenBearbeiter() + "\" einer Auswahl: " + e0.getTargetException().toString());
-           e0.printStackTrace();
+            Logger.getLogger(Auswahl.class.getName()).log(Level.SEVERE, null, e0);
         }
         catch (Exception e1)
         {
@@ -127,7 +128,7 @@ public class Auswahl extends Komponente
           catch (InvocationTargetException e2)
           {
              System.out.println("Fehler in Methode \"" + fokusErhaltenBearbeiter() + "\" einer Auswahl: " + e2.getTargetException().toString());
-             e2.printStackTrace();
+              Logger.getLogger(Auswahl.class.getName()).log(Level.SEVERE, null, e2);
           }
           catch (Exception e3)
           {
@@ -156,13 +157,13 @@ public class Auswahl extends Komponente
          Class sumEreignis = Ereignisanwendung.hatSuMPrivateAnwendung.getClass();
         try
         {
-           methode = sumEreignis.getMethod(fokusVerlorenBearbeiter(), null);
+           Method methode = sumEreignis.getMethod(fokusVerlorenBearbeiter(), null);
            methode.invoke(Ereignisanwendung.hatSuMPrivateAnwendung, null);
         }
         catch (InvocationTargetException e0)
         {
            System.out.println("Fehler in Methode \"" + fokusVerlorenBearbeiter() + "\" einer Auswahl: " + e0.getTargetException().toString());
-           e0.printStackTrace();
+            Logger.getLogger(Auswahl.class.getName()).log(Level.SEVERE, null, e0);
         }
         catch (Exception e1)
         {
@@ -176,7 +177,7 @@ public class Auswahl extends Komponente
           catch (InvocationTargetException e2)
           {
              System.out.println("Fehler in Methode \"" + fokusVerlorenBearbeiter() + "\" einer Auswahl: " + e2.getTargetException().toString());
-             e2.printStackTrace();
+              Logger.getLogger(Auswahl.class.getName()).log(Level.SEVERE, null, e2);
           }
           catch (Exception e3)
           {

@@ -6,12 +6,9 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.io.PrintStream;
 import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import javax.swing.AbstractButton;
-import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import sum.ereignis.Bildschirm;
 import sum.ereignis.Ereignisanwendung;
@@ -29,9 +26,9 @@ public class Radioknopf extends Knopf
      this.hatButton = this.hatRadioButton;
      this.hatButton.setOpaque(true);
      Bildschirm.topFenster.privatPanel().add(this.hatButton, 0);
-     this.hatButton.addActionListener(new KnopfReaktor(null));
-     this.hatButton.addKeyListener(new KnopfTastenReaktor(null));
-     this.hatButton.addFocusListener(new KnopfFokusReaktor(null));
+     this.hatButton.addActionListener(new KnopfReaktor());
+     this.hatButton.addKeyListener(new KnopfTastenReaktor());
+     this.hatButton.addFocusListener(new KnopfFokusReaktor());
      lerneKomponenteKennen(Bildschirm.topFenster, this.hatButton);
      init(pLinks, pOben, pBreite, pHoehe);
   }
@@ -48,9 +45,9 @@ public class Radioknopf extends Knopf
      this.hatButton = this.hatRadioButton;
      this.hatButton.setOpaque(true);
      pFenster.privatPanel().add(this.hatButton, 0);
-     this.hatButton.addActionListener(new KnopfReaktor(null));
-     this.hatButton.addKeyListener(new KnopfTastenReaktor(null));
-     this.hatButton.addFocusListener(new KnopfFokusReaktor(null));
+     this.hatButton.addActionListener(new KnopfReaktor());
+     this.hatButton.addKeyListener(new KnopfTastenReaktor());
+     this.hatButton.addFocusListener(new KnopfFokusReaktor());
      lerneKomponenteKennen(pFenster, this.hatButton);
      init(pLinks, pOben, pBreite, pHoehe);
   }
@@ -79,7 +76,7 @@ public class Radioknopf extends Knopf
          Class sumEreignis = Ereignisanwendung.hatSuMPrivateAnwendung.getClass();
         try
         {
-           methode = sumEreignis.getMethod(this.zGeklicktBearbeiter, null);
+           Method methode = sumEreignis.getMethod(this.zGeklicktBearbeiter, null);
            methode.invoke(Ereignisanwendung.hatSuMPrivateAnwendung, null);
         }
         catch (InvocationTargetException e0)
@@ -128,7 +125,7 @@ public class Radioknopf extends Knopf
          Class sumEreignis = Ereignisanwendung.hatSuMPrivateAnwendung.getClass();
         try
         {
-           methode = sumEreignis.getMethod(fokusErhaltenBearbeiter(), null);
+           Method methode = sumEreignis.getMethod(fokusErhaltenBearbeiter(), null);
            methode.invoke(Ereignisanwendung.hatSuMPrivateAnwendung, null);
         }
         catch (InvocationTargetException e0)
@@ -177,7 +174,7 @@ public class Radioknopf extends Knopf
          Class sumEreignis = Ereignisanwendung.hatSuMPrivateAnwendung.getClass();
         try
         {
-           methode = sumEreignis.getMethod(fokusVerlorenBearbeiter(), null);
+           Method methode = sumEreignis.getMethod(fokusVerlorenBearbeiter(), null);
            methode.invoke(Ereignisanwendung.hatSuMPrivateAnwendung, null);
         }
         catch (InvocationTargetException e0)

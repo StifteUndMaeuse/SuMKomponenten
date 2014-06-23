@@ -29,10 +29,10 @@ public class Textfeld extends Markierungskomponente
   {
      this.hatTextField = new JTextField();
      this.hatTextField.setOpaque(true);
-     this.hatTextField.getDocument().addDocumentListener(new DokumentReaktor(null));
-     this.hatTextField.addMouseMotionListener(new FeldMausReaktor(null));
-     this.hatTextField.addFocusListener(new FeldFokusReaktor(null));
-     this.hatTextField.addKeyListener(new FeldTastenReaktor(null));
+     this.hatTextField.getDocument().addDocumentListener(new DokumentReaktor());
+     this.hatTextField.addMouseMotionListener(new FeldMausReaktor());
+     this.hatTextField.addFocusListener(new FeldFokusReaktor());
+     this.hatTextField.addKeyListener(new FeldTastenReaktor());
      Bildschirm.topFenster.privatPanel().add(this.hatTextField, 0);
      lerneKomponenteKennen(Bildschirm.topFenster, this.hatTextField);
      init(pLinks, pOben, pBreite, pHoehe, pText);
@@ -42,10 +42,10 @@ public class Textfeld extends Markierungskomponente
   {
      this.hatTextField = new JTextField();
      this.hatTextField.setOpaque(true);
-     this.hatTextField.getDocument().addDocumentListener(new DokumentReaktor(null));
-     this.hatTextField.addMouseMotionListener(new FeldMausReaktor(null));
-     this.hatTextField.addFocusListener(new FeldFokusReaktor(null));
-     this.hatTextField.addKeyListener(new FeldTastenReaktor(null));
+     this.hatTextField.getDocument().addDocumentListener(new DokumentReaktor());
+     this.hatTextField.addMouseMotionListener(new FeldMausReaktor());
+     this.hatTextField.addFocusListener(new FeldFokusReaktor());
+     this.hatTextField.addKeyListener(new FeldTastenReaktor());
      pFenster.privatPanel().add(this.hatTextField, 0);
      lerneKomponenteKennen(pFenster, this.hatTextField);
      init(pLinks, pOben, pBreite, pHoehe, pText);
@@ -73,7 +73,7 @@ public class Textfeld extends Markierungskomponente
          Class sumEreignis = Ereignisanwendung.hatSuMPrivateAnwendung.getClass();
         try
         {
-           methode = sumEreignis.getMethod(this.zInhaltGeaendertBearbeiter, null);
+           Method methode = sumEreignis.getMethod(this.zInhaltGeaendertBearbeiter, null);
            methode.invoke(Ereignisanwendung.hatSuMPrivateAnwendung, null);
         }
         catch (InvocationTargetException e0)
@@ -121,7 +121,7 @@ public class Textfeld extends Markierungskomponente
          Class sumEreignis = Ereignisanwendung.hatSuMPrivateAnwendung.getClass();
         try
         {
-           methode = sumEreignis.getMethod(this.zEingabeBestaetigtBearbeiter, null);
+           Method methode = sumEreignis.getMethod(this.zEingabeBestaetigtBearbeiter, null);
            methode.invoke(Ereignisanwendung.hatSuMPrivateAnwendung, null);
         }
         catch (InvocationTargetException e0)
@@ -169,7 +169,7 @@ public class Textfeld extends Markierungskomponente
          Class sumEreignis = Ereignisanwendung.hatSuMPrivateAnwendung.getClass();
         try
         {
-           methode = sumEreignis.getMethod(this.zMarkierungGeaendertBearbeiter, null);
+           Method methode = sumEreignis.getMethod(this.zMarkierungGeaendertBearbeiter, null);
            methode.invoke(Ereignisanwendung.hatSuMPrivateAnwendung, null);
         }
         catch (InvocationTargetException e0)
@@ -218,7 +218,7 @@ public class Textfeld extends Markierungskomponente
          Class sumEreignis = Ereignisanwendung.hatSuMPrivateAnwendung.getClass();
         try
         {
-           methode = sumEreignis.getMethod(fokusErhaltenBearbeiter(), null);
+           Method methode = sumEreignis.getMethod(fokusErhaltenBearbeiter(), null);
            methode.invoke(Ereignisanwendung.hatSuMPrivateAnwendung, null);
         }
         catch (InvocationTargetException e0)
@@ -267,7 +267,7 @@ public class Textfeld extends Markierungskomponente
          Class sumEreignis = Ereignisanwendung.hatSuMPrivateAnwendung.getClass();
         try
         {
-           methode = sumEreignis.getMethod(fokusVerlorenBearbeiter(), null);
+           Method methode = sumEreignis.getMethod(fokusVerlorenBearbeiter(), null);
            methode.invoke(Ereignisanwendung.hatSuMPrivateAnwendung, null);
         }
         catch (InvocationTargetException e0)
