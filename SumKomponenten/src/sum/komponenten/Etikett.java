@@ -2,7 +2,6 @@ package sum.komponenten;
 
 import java.io.Serializable;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import sum.ereignis.Bildschirm;
 import sum.ereignis.Fenster;
 
@@ -49,6 +48,7 @@ public class Etikett extends Textkomponente
      this(pFenster, pLinks, pOben, pBreite, pHoehe, "" + pZahl);
   }
 
+  @Override
   public void setzeInhalt(String pText)
   {
      this.hatLabel.setText(pText);
@@ -100,6 +100,7 @@ public class Etikett extends Textkomponente
     }
   }
 
+  @Override
   public String inhaltAlsText()
   {
      return this.hatLabel.getText();
