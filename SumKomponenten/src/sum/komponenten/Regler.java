@@ -2,11 +2,9 @@ package sum.komponenten;
 
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
-import java.io.PrintStream;
 import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -34,8 +32,8 @@ public class Regler extends Komponente
        this.hatSlider = new JSlider(0, pMinwert, pMaxwert, pAnfangswert);
     }
      this.hatSlider.setOpaque(true);
-     this.hatSlider.addChangeListener(new SliderReaktor(null));
-     this.hatSlider.addFocusListener(new SliderFokusReaktor(null));
+     this.hatSlider.addChangeListener(new SliderReaktor());
+     this.hatSlider.addFocusListener(new SliderFokusReaktor());
      Bildschirm.topFenster.privatPanel().add(this.hatSlider, 0);
      lerneKomponenteKennen(Bildschirm.topFenster, this.hatSlider);
      init(pLinks, pOben, pBreite, pHoehe);
@@ -55,8 +53,8 @@ public class Regler extends Komponente
        this.hatSlider = new JSlider(0, pMinwert, pMaxwert, pAnfangswert);
     }
      this.hatSlider.setOpaque(true);
-     this.hatSlider.addChangeListener(new SliderReaktor(null));
-     this.hatSlider.addFocusListener(new SliderFokusReaktor(null));
+     this.hatSlider.addChangeListener(new SliderReaktor());
+     this.hatSlider.addFocusListener(new SliderFokusReaktor());
      pFenster.privatPanel().add(this.hatSlider, 0);
      lerneKomponenteKennen(pFenster, this.hatSlider);
      init(pLinks, pOben, pBreite, pHoehe);
@@ -80,7 +78,7 @@ public class Regler extends Komponente
          Class sumEreignis = Ereignisanwendung.hatSuMPrivateAnwendung.getClass();
         try
         {
-           methode = sumEreignis.getMethod(this.zGeaendertBearbeiter, null);
+           Method methode = sumEreignis.getMethod(this.zGeaendertBearbeiter, null);
            methode.invoke(Ereignisanwendung.hatSuMPrivateAnwendung, null);
         }
         catch (InvocationTargetException e0)
@@ -135,7 +133,7 @@ public class Regler extends Komponente
          Class sumEreignis = Ereignisanwendung.hatSuMPrivateAnwendung.getClass();
         try
         {
-           methode = sumEreignis.getMethod(fokusErhaltenBearbeiter(), null);
+           Method methode = sumEreignis.getMethod(fokusErhaltenBearbeiter(), null);
 
            methode.invoke(Ereignisanwendung.hatSuMPrivateAnwendung, null);
         }
@@ -190,7 +188,7 @@ public class Regler extends Komponente
          Class sumEreignis = Ereignisanwendung.hatSuMPrivateAnwendung.getClass();
         try
         {
-           methode = sumEreignis.getMethod(fokusVerlorenBearbeiter(), null);
+           Method methode = sumEreignis.getMethod(fokusVerlorenBearbeiter(), null);
 
            methode.invoke(Ereignisanwendung.hatSuMPrivateAnwendung, null);
         }
