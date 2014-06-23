@@ -49,7 +49,7 @@ public class Fortschrittsbalken extends Komponente
   public void setzeWert(int pWert)
   {
      this.hatProgressBar.setValue(pWert);
-    // this.hatProgressBar.paintImmediately(0, 0, this.hatProgressBar.getWidth(), this.hatProgressBar.getHeight());
+     this.hatProgressBar.paintImmediately(0, 0, this.hatProgressBar.getWidth(), this.hatProgressBar.getHeight());
   }
 
   public int wert()
