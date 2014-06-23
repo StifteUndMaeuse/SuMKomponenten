@@ -40,10 +40,12 @@ public class Knopf extends Textkomponente
         this.zGeklicktBearbeiter = pGeklicktBearbeiter;
         this.erzeuge(pFenster, pLinks, pOben, pBreite, pHoehe, pAufschrift);
     }
-    public Knopf(){
-        
+
+    public Knopf() {
+
     }
-    private void erzeuge(Bildschirm fenster, double pLinks, double pOben, double pBreite, double pHoehe, String pAufschrift){
+
+    private void erzeuge(Bildschirm fenster, double pLinks, double pOben, double pBreite, double pHoehe, String pAufschrift) {
         this.hatButton = new JButton(pAufschrift);
         this.hatButton.setOpaque(true);
         fenster.privatPanel().add(this.hatButton, 0);
@@ -53,7 +55,6 @@ public class Knopf extends Textkomponente
         lerneKomponenteKennen(fenster, this.hatButton);
         init(pLinks, pOben, pBreite, pHoehe);
     }
-    
 
     public void setzeBearbeiterGeklickt(String pBearbeiter) {
         this.zGeklicktBearbeiter = pBearbeiter;
@@ -66,25 +67,18 @@ public class Knopf extends Textkomponente
     }
 
     private void bearbeiteEreigniss(String methodenName) {
-        
+
         if (!methodenName.isEmpty()) {
 
-            Class[] formparas = new Class[1];
-            formparas[0] = Knopf.class;
-            Knopf[] meinKnopf = new Knopf[1];
-            meinKnopf[0] = this;
             Method methode;
             Class sumEreignis = Ereignisanwendung.hatSuMPrivateAnwendung.getClass();
 
             try {
                 methode = sumEreignis.getMethod(methodenName);
                 methode.invoke(Ereignisanwendung.hatSuMPrivateAnwendung);
-            } catch (InvocationTargetException e) {
-                System.out.println("Fehler in Methode \"" + this.zGeklicktBearbeiter + "\" von Knopf \"" + inhaltAlsText() + "\": " + e.getMessage());
-                Logger.getLogger(Kennwortfeld.class.getName()).log(Level.SEVERE, null, e);
             } catch (NoSuchMethodException e1) {
                 System.out.println("Fehler: Methode \"" + this.zGeklicktBearbeiter + "\" von Knopf \"" + inhaltAlsText() + "\" nicht gefunden.");
-            } catch (IllegalAccessException | IllegalArgumentException | SecurityException e2) {
+            } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException | SecurityException e2) {
                 System.out.println("Fehler in Methode \"" + this.zGeklicktBearbeiter + "\" von Knopf \"" + inhaltAlsText() + "\": " + e2.getMessage());
                 Logger.getLogger(Kennwortfeld.class.getName()).log(Level.SEVERE, null, e2);
             }
@@ -143,7 +137,9 @@ public class Knopf extends Textkomponente
     @Override
     public void keyTyped(KeyEvent e) {
     }
+
     //Implementiert aber nicht genutzt
+
     @Override
     public void keyReleased(KeyEvent e) {
     }
