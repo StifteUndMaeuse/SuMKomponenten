@@ -6,13 +6,13 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.io.PrintStream;
 import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.AbstractButton;
 import javax.swing.JButton;
-import javax.swing.JPanel;
 import sum.ereignis.Bildschirm;
 import sum.ereignis.Ereignisanwendung;
 import sum.ereignis.Fenster;
@@ -28,9 +28,9 @@ public class Knopf extends Textkomponente
      this.hatButton = new JButton(pAufschrift);
      this.hatButton.setOpaque(true);
      Bildschirm.topFenster.privatPanel().add(this.hatButton, 0);
-     this.hatButton.addActionListener(new KnopfReaktor(null));
-     this.hatButton.addKeyListener(new KnopfTastenReaktor(null));
-     this.hatButton.addFocusListener(new KnopfFokusReaktor(null));
+     this.hatButton.addActionListener(new KnopfReaktor());
+     this.hatButton.addKeyListener(new KnopfTastenReaktor());
+     this.hatButton.addFocusListener(new KnopfFokusReaktor());
      lerneKomponenteKennen(Bildschirm.topFenster, this.hatButton);
      init(pLinks, pOben, pBreite, pHoehe);
   }
@@ -46,9 +46,9 @@ public class Knopf extends Textkomponente
      this.hatButton = new JButton(pAufschrift);
      this.hatButton.setOpaque(true);
      pFenster.privatPanel().add(this.hatButton, 0);
-     this.hatButton.addActionListener(new KnopfReaktor(null));
-     this.hatButton.addKeyListener(new KnopfTastenReaktor(null));
-     this.hatButton.addFocusListener(new KnopfFokusReaktor(null));
+     this.hatButton.addActionListener(new KnopfReaktor());
+     this.hatButton.addKeyListener(new KnopfTastenReaktor());
+     this.hatButton.addFocusListener(new KnopfFokusReaktor());
      lerneKomponenteKennen(pFenster, this.hatButton);
      init(pLinks, pOben, pBreite, pHoehe);
   }
@@ -81,13 +81,13 @@ public class Knopf extends Textkomponente
          Class sumEreignis = Ereignisanwendung.hatSuMPrivateAnwendung.getClass();
         try
         {
-           methode = sumEreignis.getMethod(this.zGeklicktBearbeiter, null);
+           Method methode = sumEreignis.getMethod(this.zGeklicktBearbeiter, null);
            methode.invoke(Ereignisanwendung.hatSuMPrivateAnwendung, null);
         }
         catch (InvocationTargetException e0)
         {
            System.out.println("Fehler in Methode \"" + this.zGeklicktBearbeiter + "\" von Knopf \"" + inhaltAlsText() + "\": " + e0.getTargetException().toString());
-           e0.printStackTrace();
+           Logger.getLogger(Kennwortfeld.class.getName()).log(Level.SEVERE, null, e0);
         }
         catch (Exception e1)
         {
@@ -101,7 +101,7 @@ public class Knopf extends Textkomponente
           catch (InvocationTargetException e2)
           {
              System.out.println("Fehler in Methode \"" + this.zGeklicktBearbeiter + "\" von Knopf \"" + inhaltAlsText() + "\": " + e2.getTargetException().toString());
-             e2.printStackTrace();
+             Logger.getLogger(Kennwortfeld.class.getName()).log(Level.SEVERE, null, e2);
           }
           catch (Exception e3)
           {
@@ -130,13 +130,13 @@ public class Knopf extends Textkomponente
          Class sumEreignis = Ereignisanwendung.hatSuMPrivateAnwendung.getClass();
         try
         {
-           methode = sumEreignis.getMethod(fokusErhaltenBearbeiter(), null);
+           Method methode = sumEreignis.getMethod(fokusErhaltenBearbeiter(), null);
            methode.invoke(Ereignisanwendung.hatSuMPrivateAnwendung, null);
         }
         catch (InvocationTargetException e0)
         {
            System.out.println("Fehler in Methode \"" + fokusErhaltenBearbeiter() + "\" von Knopf \"" + inhaltAlsText() + "\": " + e0.getTargetException().toString());
-           e0.printStackTrace();
+           Logger.getLogger(Kennwortfeld.class.getName()).log(Level.SEVERE, null, e0);
         }
         catch (Exception e1)
         {
@@ -179,13 +179,13 @@ public class Knopf extends Textkomponente
          Class sumEreignis = Ereignisanwendung.hatSuMPrivateAnwendung.getClass();
         try
         {
-           methode = sumEreignis.getMethod(fokusVerlorenBearbeiter(), null);
+           Method methode = sumEreignis.getMethod(fokusVerlorenBearbeiter(), null);
            methode.invoke(Ereignisanwendung.hatSuMPrivateAnwendung, null);
         }
         catch (InvocationTargetException e0)
         {
            System.out.println("Fehler in Methode \"" + fokusVerlorenBearbeiter() + "\" von Knopf \"" + inhaltAlsText() + "\": " + e0.getTargetException().toString());
-           e0.printStackTrace();
+           Logger.getLogger(Kennwortfeld.class.getName()).log(Level.SEVERE, null, e0);
         }
         catch (Exception e1)
         {
@@ -199,7 +199,7 @@ public class Knopf extends Textkomponente
           catch (InvocationTargetException e2)
           {
              System.out.println("Fehler in Methode \"" + fokusVerlorenBearbeiter() + "\" von Knopf \"" + inhaltAlsText() + "\": " + e2.getTargetException().toString());
-             e2.printStackTrace();
+             Logger.getLogger(Kennwortfeld.class.getName()).log(Level.SEVERE, null, e2);
           }
           catch (Exception e3)
           {
@@ -260,6 +260,7 @@ public class Knopf extends Textkomponente
          Knopf.this.knopfGeklickt();
     }
 
+    @Override
     public void keyReleased(KeyEvent e)
     {
     }
@@ -272,6 +273,7 @@ public class Knopf extends Textkomponente
     {
     }
 
+    @Override
     public void actionPerformed(ActionEvent e)
     {
        Knopf.this.knopfGeklickt();
