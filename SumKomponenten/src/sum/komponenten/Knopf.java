@@ -18,270 +18,133 @@ import sum.ereignis.Ereignisanwendung;
 import sum.ereignis.Fenster;
 
 public class Knopf extends Textkomponente
-  implements Serializable
-{
-   private String zGeklicktBearbeiter = "";
-  protected AbstractButton hatButton;
+        implements Serializable, ActionListener, FocusListener, KeyListener {
 
-  public Knopf(double pLinks, double pOben, double pBreite, double pHoehe, String pAufschrift)
-  {
-     this.hatButton = new JButton(pAufschrift);
-     this.hatButton.setOpaque(true);
-     Bildschirm.topFenster.privatPanel().add(this.hatButton, 0);
-     this.hatButton.addActionListener(new KnopfReaktor());
-     this.hatButton.addKeyListener(new KnopfTastenReaktor());
-     this.hatButton.addFocusListener(new KnopfFokusReaktor());
-     lerneKomponenteKennen(Bildschirm.topFenster, this.hatButton);
-     init(pLinks, pOben, pBreite, pHoehe);
-  }
+    private String zGeklicktBearbeiter = "";
+    protected AbstractButton hatButton;
 
-  public Knopf(double pLinks, double pOben, double pBreite, double pHoehe, String pAufschrift, String pGeklicktBearbeiter)
-  {
-     this(pLinks, pOben, pBreite, pHoehe, pAufschrift);
-     this.zGeklicktBearbeiter = pGeklicktBearbeiter;
-  }
-
-  public Knopf(Fenster pFenster, double pLinks, double pOben, double pBreite, double pHoehe, String pAufschrift)
-  {
-     this.hatButton = new JButton(pAufschrift);
-     this.hatButton.setOpaque(true);
-     pFenster.privatPanel().add(this.hatButton, 0);
-     this.hatButton.addActionListener(new KnopfReaktor());
-     this.hatButton.addKeyListener(new KnopfTastenReaktor());
-     this.hatButton.addFocusListener(new KnopfFokusReaktor());
-     lerneKomponenteKennen(pFenster, this.hatButton);
-     init(pLinks, pOben, pBreite, pHoehe);
-  }
-
-  public Knopf(Fenster pFenster, double pLinks, double pOben, double pBreite, double pHoehe, String pAufschrift, String pGeklicktBearbeiter)
-  {
-     this(pFenster, pLinks, pOben, pBreite, pHoehe, pAufschrift);
-     this.zGeklicktBearbeiter = pGeklicktBearbeiter;
-  }
-
-  public Knopf()
-  {
-  }
-
-  public void setzeBearbeiterGeklickt(String pBearbeiter)
-  {
-     this.zGeklicktBearbeiter = pBearbeiter;
-  }
-
-  protected void knopfGeklickt()
-  {
-     Class[] formparas = new Class[1];
-
-     Knopf[] meinKnopf = new Knopf[1];
-
-     if (this.zGeklicktBearbeiter.length() > 0)
-    {
-      try
-      {
-         Class sumEreignis = Ereignisanwendung.hatSuMPrivateAnwendung.getClass();
-        try
-        {
-           Method methode = sumEreignis.getMethod(this.zGeklicktBearbeiter, null);
-           methode.invoke(Ereignisanwendung.hatSuMPrivateAnwendung, null);
-        }
-        catch (InvocationTargetException e0)
-        {
-           System.out.println("Fehler in Methode \"" + this.zGeklicktBearbeiter + "\" von Knopf \"" + inhaltAlsText() + "\": " + e0.getTargetException().toString());
-           Logger.getLogger(Kennwortfeld.class.getName()).log(Level.SEVERE, null, e0);
-        }
-        catch (Exception e1)
-        {
-          try
-          {
-             formparas[0] = Knopf.class;
-             Method methode = sumEreignis.getMethod(this.zGeklicktBearbeiter, formparas);
-             meinKnopf[0] = this;
-             methode.invoke(Ereignisanwendung.hatSuMPrivateAnwendung, meinKnopf);
-          }
-          catch (InvocationTargetException e2)
-          {
-             System.out.println("Fehler in Methode \"" + this.zGeklicktBearbeiter + "\" von Knopf \"" + inhaltAlsText() + "\": " + e2.getTargetException().toString());
-             Logger.getLogger(Kennwortfeld.class.getName()).log(Level.SEVERE, null, e2);
-          }
-          catch (Exception e3)
-          {
-             System.out.println("Fehler: Methode \"" + this.zGeklicktBearbeiter + "\" von Knopf \"" + inhaltAlsText() + "\" nicht gefunden.");
-          }
-        }
-      }
-      catch (Exception e4)
-      {
-         System.out.println("Knopf: " + e4.toString());
-      }
-    }
-  }
-
-  protected void bekommtFokus()
-  {
-     Class[] formparas = new Class[1];
-
-     Knopf[] meinKnopf = new Knopf[1];
-
-     setzeFokusWert(true);
-     if (fokusErhaltenBearbeiter().length() > 0)
-    {
-      try
-      {
-         Class sumEreignis = Ereignisanwendung.hatSuMPrivateAnwendung.getClass();
-        try
-        {
-           Method methode = sumEreignis.getMethod(fokusErhaltenBearbeiter(), null);
-           methode.invoke(Ereignisanwendung.hatSuMPrivateAnwendung, null);
-        }
-        catch (InvocationTargetException e0)
-        {
-           System.out.println("Fehler in Methode \"" + fokusErhaltenBearbeiter() + "\" von Knopf \"" + inhaltAlsText() + "\": " + e0.getTargetException().toString());
-           Logger.getLogger(Kennwortfeld.class.getName()).log(Level.SEVERE, null, e0);
-        }
-        catch (Exception e1)
-        {
-          try
-          {
-             formparas[0] = Knopf.class;
-             Method methode = sumEreignis.getMethod(fokusErhaltenBearbeiter(), formparas);
-             meinKnopf[0] = this;
-             methode.invoke(Ereignisanwendung.hatSuMPrivateAnwendung, meinKnopf);
-          }
-          catch (InvocationTargetException e2)
-          {
-             System.out.println("Fehler in Methode \"" + fokusErhaltenBearbeiter() + "\" von Knopf \"" + inhaltAlsText() + "\": " + e2.getTargetException().toString());
-             e2.printStackTrace();
-          }
-          catch (Exception e3)
-          {
-             System.out.println("Fehler: Methode \"" + fokusErhaltenBearbeiter() + "\" von Knopf \"" + inhaltAlsText() + "\" nicht gefunden.");
-          }
-        }
-      }
-      catch (Exception e4)
-      {
-         System.out.println("SuMAnwendung: " + e4.toString());
-      }
-    }
-  }
-
-  protected void verliertFokus()
-  {
-     Class[] formparas = new Class[1];
-
-     Knopf[] meinKnopf = new Knopf[1];
-
-     setzeFokusWert(false);
-     if (fokusVerlorenBearbeiter().length() > 0)
-    {
-      try
-      {
-         Class sumEreignis = Ereignisanwendung.hatSuMPrivateAnwendung.getClass();
-        try
-        {
-           Method methode = sumEreignis.getMethod(fokusVerlorenBearbeiter(), null);
-           methode.invoke(Ereignisanwendung.hatSuMPrivateAnwendung, null);
-        }
-        catch (InvocationTargetException e0)
-        {
-           System.out.println("Fehler in Methode \"" + fokusVerlorenBearbeiter() + "\" von Knopf \"" + inhaltAlsText() + "\": " + e0.getTargetException().toString());
-           Logger.getLogger(Kennwortfeld.class.getName()).log(Level.SEVERE, null, e0);
-        }
-        catch (Exception e1)
-        {
-          try
-          {
-             formparas[0] = Knopf.class;
-             Method methode = sumEreignis.getMethod(fokusVerlorenBearbeiter(), formparas);
-             meinKnopf[0] = this;
-             methode.invoke(Ereignisanwendung.hatSuMPrivateAnwendung, meinKnopf);
-          }
-          catch (InvocationTargetException e2)
-          {
-             System.out.println("Fehler in Methode \"" + fokusVerlorenBearbeiter() + "\" von Knopf \"" + inhaltAlsText() + "\": " + e2.getTargetException().toString());
-             Logger.getLogger(Kennwortfeld.class.getName()).log(Level.SEVERE, null, e2);
-          }
-          catch (Exception e3)
-          {
-             System.out.println("Fehler: Methode \"" + fokusVerlorenBearbeiter() + "\" von Knopf \"" + inhaltAlsText() + "\" nicht gefunden.");
-          }
-        }
-      }
-      catch (Exception e4)
-      {
-         System.out.println("SuMAnwendung: " + e4.toString());
-      }
-    }
-  }
-
-  public void setzeInhalt(String pText)
-  {
-     this.hatButton.setText(pText);
-     Bildschirm.topFenster.doUpdate(this.hatButton);
-  }
-
-  public String inhaltAlsText()
-  {
-     return this.hatButton.getText();
-  }
-
-  private class KnopfFokusReaktor
-    implements FocusListener
-  {
-    private KnopfFokusReaktor()
-    {
+    public Knopf(double pLinks, double pOben, double pBreite, double pHoehe, String pAufschrift) {
+        this.erzeuge(Bildschirm.topFenster, pLinks, pOben, pBreite, pHoehe, pAufschrift);
     }
 
-    public void focusGained(FocusEvent e)
-    {
-       Knopf.this.bekommtFokus();
+    public Knopf(double pLinks, double pOben, double pBreite, double pHoehe, String pAufschrift, String pGeklicktBearbeiter) {
+        this.zGeklicktBearbeiter = pGeklicktBearbeiter;
+        this.erzeuge(Bildschirm.topFenster, pLinks, pOben, pBreite, pHoehe, pAufschrift);
     }
 
-    public void focusLost(FocusEvent e)
-    {
-       Knopf.this.verliertFokus();
-    }
-  }
-
-  private class KnopfTastenReaktor
-    implements KeyListener
-  {
-    private KnopfTastenReaktor()
-    {
+    public Knopf(Fenster pFenster, double pLinks, double pOben, double pBreite, double pHoehe, String pAufschrift) {
+        this.erzeuge(pFenster, pLinks, pOben, pBreite, pHoehe, pAufschrift);
     }
 
-    public void keyTyped(KeyEvent e)
-    {
+    public Knopf(Fenster pFenster, double pLinks, double pOben, double pBreite, double pHoehe, String pAufschrift, String pGeklicktBearbeiter) {
+        this.zGeklicktBearbeiter = pGeklicktBearbeiter;
+        this.erzeuge(pFenster, pLinks, pOben, pBreite, pHoehe, pAufschrift);
+    }
+    public Knopf(){
+        
+    }
+    private void erzeuge(Bildschirm fenster, double pLinks, double pOben, double pBreite, double pHoehe, String pAufschrift){
+        this.hatButton = new JButton(pAufschrift);
+        this.hatButton.setOpaque(true);
+        fenster.privatPanel().add(this.hatButton, 0);
+        this.hatButton.addActionListener(this);
+        this.hatButton.addKeyListener(this);
+        this.hatButton.addFocusListener(this);
+        lerneKomponenteKennen(fenster, this.hatButton);
+        init(pLinks, pOben, pBreite, pHoehe);
+    }
+    
+
+    public void setzeBearbeiterGeklickt(String pBearbeiter) {
+        this.zGeklicktBearbeiter = pBearbeiter;
     }
 
-    public void keyPressed(KeyEvent e)
-    {
-       if (e.getKeyCode() == 10)
-         Knopf.this.knopfGeklickt();
+    private void knopfGeklickt() {
+        if (!this.zGeklicktBearbeiter.isEmpty()) {
+            this.bearbeiteEreigniss(this.zGeklicktBearbeiter);
+        }
+    }
+
+    private void bearbeiteEreigniss(String methodenName) {
+        
+        if (!methodenName.isEmpty()) {
+
+            Class[] formparas = new Class[1];
+            formparas[0] = Knopf.class;
+            Knopf[] meinKnopf = new Knopf[1];
+            meinKnopf[0] = this;
+            Method methode;
+            Class sumEreignis = Ereignisanwendung.hatSuMPrivateAnwendung.getClass();
+
+            try {
+                methode = sumEreignis.getMethod(methodenName);
+                methode.invoke(Ereignisanwendung.hatSuMPrivateAnwendung);
+            } catch (InvocationTargetException e) {
+                System.out.println("Fehler in Methode \"" + this.zGeklicktBearbeiter + "\" von Knopf \"" + inhaltAlsText() + "\": " + e.getMessage());
+                Logger.getLogger(Kennwortfeld.class.getName()).log(Level.SEVERE, null, e);
+            } catch (NoSuchMethodException e1) {
+                System.out.println("Fehler: Methode \"" + this.zGeklicktBearbeiter + "\" von Knopf \"" + inhaltAlsText() + "\" nicht gefunden.");
+            } catch (IllegalAccessException | IllegalArgumentException | SecurityException e2) {
+                System.out.println("Fehler in Methode \"" + this.zGeklicktBearbeiter + "\" von Knopf \"" + inhaltAlsText() + "\": " + e2.getMessage());
+                Logger.getLogger(Kennwortfeld.class.getName()).log(Level.SEVERE, null, e2);
+            }
+        }
+    }
+
+    private void bekommtFokus() {
+        setzeFokusWert(true);
+        this.bearbeiteEreigniss(fokusErhaltenBearbeiter());
+    }
+
+    private void verliertFokus() {
+        setzeFokusWert(false);
+        this.bearbeiteEreigniss(fokusVerlorenBearbeiter());
     }
 
     @Override
-    public void keyReleased(KeyEvent e)
-    {
-    }
-  }
+    public void setzeInhalt(String pText) {
+        this.hatButton.setText(pText);
+        //Bildschirm.topFenster.doUpdate(this.hatButton);
 
-  private class KnopfReaktor
-    implements ActionListener
-  {
-    private KnopfReaktor()
-    {
     }
 
     @Override
-    public void actionPerformed(ActionEvent e)
-    {
-       Knopf.this.knopfGeklickt();
+    public String inhaltAlsText() {
+        return this.hatButton.getText();
     }
-  }
+
+    //Knopf geklickt
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        this.knopfGeklickt();
+    }
+
+    //Fokus erhalten
+    @Override
+    public void focusGained(FocusEvent e) {
+        this.bekommtFokus();
+    }
+
+    //Fokus verloren
+    @Override
+    public void focusLost(FocusEvent e) {
+        this.verliertFokus();
+    }
+
+    //Taste gedrückt
+    @Override
+    public void keyPressed(KeyEvent e) {
+        if (e.getKeyCode() == 10) {
+            this.knopfGeklickt();
+        }
+    }
+
+    //Implementiert aber nicht genutzt
+    @Override
+    public void keyTyped(KeyEvent e) {
+    }
+    //Implementiert aber nicht genutzt
+    @Override
+    public void keyReleased(KeyEvent e) {
+    }
 }
-
-/* Location:           C:\Users\Programmieren\Java Recources\sumlibs\SuMKomponenten.jar
- * Qualified Name:     sum.komponenten.Knopf
- * JD-Core Version:    0.6.0
- */
