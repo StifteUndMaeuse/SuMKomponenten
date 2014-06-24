@@ -4,16 +4,11 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.Serializable;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 import sum.ereignis.Bildschirm;
-import sum.ereignis.Ereignisanwendung;
 
 public class Menue extends Textkomponente
   implements Serializable, ActionListener
@@ -27,6 +22,7 @@ public class Menue extends Textkomponente
 
   public Menue(String pTitel, JMenu pObermenu)
   {
+      this.zBearbeiterText = "eines Menues";
      JMenuBar lMenuBar = Bildschirm.topFenster.getJMenuBar();
      this.hatMenu = new JMenu(pTitel);
      this.hatMenu.addActionListener(this);
@@ -47,24 +43,6 @@ public class Menue extends Textkomponente
   }
 
 
-  private void bearbeiteEreigniss(String methodenName) {
-
-        if (!methodenName.isEmpty()) {
-            
-            Method methode;
-            Class sumEreignis = Ereignisanwendung.hatSuMPrivateAnwendung.getClass();
-
-            try {
-                methode = sumEreignis.getMethod(methodenName);
-                methode.invoke(Ereignisanwendung.hatSuMPrivateAnwendung);
-            } catch (NoSuchMethodException e1) {
-                System.out.println("Fehler: Methode \"" + methodenName + "\" eines Menues nicht gefunden.");
-            } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException | SecurityException e2) {
-                System.out.println("Fehler in Methode \"" + methodenName + "\" eines Menues: " + e2.getMessage());
-                Logger.getLogger(Kennwortfeld.class.getName()).log(Level.SEVERE, null, e2);
-            }
-        }
-    }
   public void haengeZeileAn(String pText, String pAuftrag)
   {
      JMenuItem mi = new JMenuItem(pText);

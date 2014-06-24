@@ -3,15 +3,10 @@ package sum.komponenten;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.io.Serializable;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import sum.ereignis.Bildschirm;
-import sum.ereignis.Ereignisanwendung;
 import sum.ereignis.Fenster;
 
 public class Regler extends Komponente
@@ -37,6 +32,7 @@ public class Regler extends Komponente
     }
     
     private void erzeuge(Bildschirm pFenster, double pLinks, double pOben, double pBreite, double pHoehe, int pAnfangswert, int pMinwert, int pMaxwert){
+        this.zBearbeiterText = "eines Reglers";
         if (pHoehe > pBreite) {
             this.hatSlider = new JSlider(1, pMinwert, pMaxwert, pAnfangswert);
         } else {
@@ -45,6 +41,7 @@ public class Regler extends Komponente
         this.hatSlider.setOpaque(true);
         this.hatSlider.addChangeListener(this);
         this.hatSlider.addFocusListener(this);
+        
         pFenster.privatPanel().add(this.hatSlider, 0);
         lerneKomponenteKennen(pFenster, this.hatSlider);
         init(pLinks, pOben, pBreite, pHoehe);
@@ -52,25 +49,6 @@ public class Regler extends Komponente
     
     public void setzeBearbeiterGeaendert(String pBearbeiter) {
         this.zGeaendertBearbeiter = pBearbeiter;
-    }
-
-    private void bearbeiteEreigniss(String methodenName) {
-
-        if (!methodenName.isEmpty()) {
-
-            Method methode;
-            Class sumEreignis = Ereignisanwendung.hatSuMPrivateAnwendung.getClass();
-
-            try {
-                methode = sumEreignis.getMethod(methodenName);
-                methode.invoke(Ereignisanwendung.hatSuMPrivateAnwendung);
-            } catch (NoSuchMethodException e1) {
-                System.out.println("Fehler: Methode \"" + this.zGeaendertBearbeiter + "\" einer Auswahl nicht gefunden.");
-            } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException | SecurityException e2) {
-                System.out.println("Fehler: Methode \"" + this.zGeaendertBearbeiter + "\" eines Reglers nicht gefunden.");
-                Logger.getLogger(Kennwortfeld.class.getName()).log(Level.SEVERE, null, e2);
-            }
-        }
     }
 
     public void setzeWert(int pWert) {

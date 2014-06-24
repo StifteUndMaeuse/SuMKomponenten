@@ -5,13 +5,8 @@ import java.awt.event.FocusListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.io.Serializable;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import sum.ereignis.Bildschirm;
-import sum.ereignis.Ereignisanwendung;
 import sum.ereignis.Fenster;
 
 public class Auswahl extends Komponente
@@ -29,6 +24,7 @@ public class Auswahl extends Komponente
     }
 
     private void erzeuge(Bildschirm pFenster, double pLinks, double pOben, double pBreite, double pHoehe) {
+        this.zBearbeiterText = "einer Auswahl";
         this.hatComboBox = new JComboBox();
         this.hatComboBox.setOpaque(true);
         pFenster.privatPanel().add(this.hatComboBox, 0);
@@ -40,26 +36,6 @@ public class Auswahl extends Komponente
 
     public void setzeBearbeiterGeaendert(String pBearbeiter) {
         this.zGeaendertBearbeiter = pBearbeiter;
-    }
-
-    private void bearbeiteEreigniss(String methodenName) {
-
-        if (!methodenName.isEmpty()) {
-
- 
-            Method methode;
-            Class sumEreignis = Ereignisanwendung.hatSuMPrivateAnwendung.getClass();
-
-            try {
-                methode = sumEreignis.getMethod(methodenName);
-                methode.invoke(Ereignisanwendung.hatSuMPrivateAnwendung);
-            } catch (NoSuchMethodException e1) {
-                System.out.println("Fehler: Methode \"" + this.zGeaendertBearbeiter + "\" einer Auswahl nicht gefunden.");
-            } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException | SecurityException e2) {
-                System.out.println("Fehler in Methode \"" + this.zGeaendertBearbeiter + "\" einer Auswahl: " + e2.getMessage());
-                Logger.getLogger(Kennwortfeld.class.getName()).log(Level.SEVERE, null, e2);
-            }
-        }
     }
 
 

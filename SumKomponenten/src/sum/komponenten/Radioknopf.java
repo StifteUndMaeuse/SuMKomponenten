@@ -7,13 +7,8 @@ import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.Serializable;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JRadioButton;
 import sum.ereignis.Bildschirm;
-import sum.ereignis.Ereignisanwendung;
 import sum.ereignis.Fenster;
 
 public class Radioknopf extends Knopf
@@ -41,6 +36,7 @@ public class Radioknopf extends Knopf
     }
 
     private void erzeuge(Bildschirm pFenster, double pLinks, double pOben, double pBreite, double pHoehe, String pAufschrift) {
+        this.zBearbeiterText = "eines Radioknopfes";
         this.hatRadioButton = new JRadioButton(pAufschrift);
         this.hatButton = this.hatRadioButton;
         this.hatButton.setOpaque(true);
@@ -55,25 +51,6 @@ public class Radioknopf extends Knopf
     @Override
     public void setzeBearbeiterGeklickt(String pBearbeiter) {
         this.zGeklicktBearbeiter = pBearbeiter;
-    }
-
-    private void bearbeiteEreigniss(String methodenName) {
-
-        if (!methodenName.isEmpty()) {
-
-            Method methode;
-            Class sumEreignis = Ereignisanwendung.hatSuMPrivateAnwendung.getClass();
-
-            try {
-                methode = sumEreignis.getMethod(methodenName);
-                methode.invoke(Ereignisanwendung.hatSuMPrivateAnwendung);
-            } catch (NoSuchMethodException e1) {
-                System.out.println("Fehler: Methode \"" + this.zGeklicktBearbeiter + "\" von Knopf \"" + inhaltAlsText() + "\" nicht gefunden.");
-            } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException | SecurityException e2) {
-                System.out.println("Fehler in Methode \"" + this.zGeklicktBearbeiter + "\" von Knopf \"" + inhaltAlsText() + "\": " + e2.getMessage());
-                Logger.getLogger(Kennwortfeld.class.getName()).log(Level.SEVERE, null, e2);
-            }
-        }
     }
 
     public boolean istGewaehlt() {

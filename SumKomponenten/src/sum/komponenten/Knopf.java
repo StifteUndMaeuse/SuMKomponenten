@@ -7,14 +7,9 @@ import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.Serializable;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.AbstractButton;
 import javax.swing.JButton;
 import sum.ereignis.Bildschirm;
-import sum.ereignis.Ereignisanwendung;
 import sum.ereignis.Fenster;
 
 public class Knopf extends Textkomponente
@@ -46,6 +41,7 @@ public class Knopf extends Textkomponente
     }
 
     private void erzeuge(Bildschirm fenster, double pLinks, double pOben, double pBreite, double pHoehe, String pAufschrift) {
+        this.zBearbeiterText = "eines Knopfes";
         this.hatButton = new JButton(pAufschrift);
         this.hatButton.setOpaque(true);
         fenster.privatPanel().add(this.hatButton, 0);
@@ -58,25 +54,6 @@ public class Knopf extends Textkomponente
 
     public void setzeBearbeiterGeklickt(String pBearbeiter) {
         this.zGeklicktBearbeiter = pBearbeiter;
-    }
-
-    private void bearbeiteEreigniss(String methodenName) {
-
-        if (!methodenName.isEmpty()) {
-
-            Method methode;
-            Class sumEreignis = Ereignisanwendung.hatSuMPrivateAnwendung.getClass();
-
-            try {
-                methode = sumEreignis.getMethod(methodenName);
-                methode.invoke(Ereignisanwendung.hatSuMPrivateAnwendung);
-            } catch (NoSuchMethodException e1) {
-                System.out.println("Fehler: Methode \"" + this.zGeklicktBearbeiter + "\" von Knopf \"" + inhaltAlsText() + "\" nicht gefunden.");
-            } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException | SecurityException e2) {
-                System.out.println("Fehler in Methode \"" + this.zGeklicktBearbeiter + "\" von Knopf \"" + inhaltAlsText() + "\": " + e2.getMessage());
-                Logger.getLogger(Kennwortfeld.class.getName()).log(Level.SEVERE, null, e2);
-            }
-        }
     }
     
     @Override
