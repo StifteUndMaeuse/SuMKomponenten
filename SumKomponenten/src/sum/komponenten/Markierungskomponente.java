@@ -58,7 +58,3 @@ public abstract class Markierungskomponente extends Textkomponente
   public abstract int markierungsEnde();
 }
 
-/* Location:           C:\Users\Programmieren\Java Recources\sumlibs\SuMKomponenten.jar
- * Qualified Name:     sum.komponenten.Markierungskomponente
- * JD-Core Version:    0.6.0
- */
