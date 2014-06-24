@@ -83,51 +83,7 @@ public abstract class Komponente {
     }
 
     public void setzeFarbe(int pFarbe) {
-        if (pFarbe < 0) {
-            pFarbe = 0;
-        }
-        pFarbe %= 13;
-        switch (pFarbe) {
-            case 0:
-                setzeFarbe(Color.black);
-                break;
-            case 1:
-                setzeFarbe(Color.blue);
-                break;
-            case 2:
-                setzeFarbe(Color.cyan);
-                break;
-            case 3:
-                setzeFarbe(Color.darkGray);
-                break;
-            case 4:
-                setzeFarbe(Color.gray);
-                break;
-            case 5:
-                setzeFarbe(Color.green);
-                break;
-            case 6:
-                setzeFarbe(Color.lightGray);
-                break;
-            case 7:
-                setzeFarbe(Color.magenta);
-                break;
-            case 8:
-                setzeFarbe(Color.orange);
-                break;
-            case 9:
-                setzeFarbe(Color.pink);
-                break;
-            case 10:
-                setzeFarbe(Color.red);
-                break;
-            case 11:
-                setzeFarbe(Color.white);
-                break;
-            case 12:
-                setzeFarbe(Color.yellow);
-        }
-
+        this.setzeFarbe(KomponentenHelper.getColorbyFarbnummer(pFarbe));
         this.hatComponent.repaint();
     }
 
